@@ -2,25 +2,22 @@
 
 void setup() {
     M5.begin();
-    int cap0 = 0;
-    int cap1 = 0;
-    int cap2 = 0;
-    int cap3 = 0;
-    int cap4 = 0;
-    trad(cap0, cap1, cap2, cap3, cap4);
+    int cap0 = 1; // Ok 1
+    int cap1 = 1; // Ok 2
+    int cap2 = 1; // Ok 4
+    int cap3 = 1; // OK 8
+    int cap4 = 1; // Ok 16
+    trad(cap4, cap3, cap2, cap1, cap0);
 }
 
 void loop() {
 // write your code here
 }
 
-int trad(int cap0, int cap1, int cap2, int cap3, int cap4) {
-
+int trad(int cap4, int cap3, int cap2, int cap1, int cap0) {
     M5.Lcd.setTextSize(12);
-
-    int result = cap0 + cap1 + cap2 + cap3 + cap4;
+    int result = (cap4 * 16) + (cap3 * 8) + (cap2 * 4) + (cap1 * 2) + (cap0);
     M5.Lcd.println(result);
-
 
     return result;
 }
