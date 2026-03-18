@@ -1,5 +1,11 @@
 #include <M5Stack.h>
 
+#define SENSOR_0 34
+#define SENSOR_1 0
+#define SENSOR_2 13
+#define SENSOR_3 36
+#define SENSOR_4 35
+
 void setup() {
     M5.begin();
     int cap0 = 1; // Ok 1
