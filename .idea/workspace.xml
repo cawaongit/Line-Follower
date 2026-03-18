@@ -21,10 +21,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Base">
+    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Sensor constants added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ino" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,47 +45,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "cawaongit"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;cawaongit&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/cawaongit/Line-Follower.git",
-    "accountId": "7ad95dc7-92d6-4485-bdd4-8dc425210639"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower.git&quot;,
+    &quot;accountId&quot;: &quot;7ad95dc7-92d6-4485-bdd4-8dc425210639&quot;
   }
-}]]></component>
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="SxWF3vYB" />
-  </component>
-  <component name="PlatformioLocalSettings">
-    <option name="availableProjects">
-      <map>
-        <entry>
-          <key>
-            <ExternalProjectPojo>
-              <option name="name" value="Line-Follower" />
-              <option name="path" value="$PROJECT_DIR$" />
-            </ExternalProjectPojo>
-          </key>
-          <value>
-            <list>
-              <ExternalProjectPojo>
-                <option name="name" value="Line-Follower" />
-                <option name="path" value="$PROJECT_DIR$" />
-              </ExternalProjectPojo>
-            </list>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
-      </map>
-    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -99,46 +73,40 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="3B7PCLNzajJDXE5A32QkxbUAQLA" />
-  <component name="ProjectStatusUIService"><![CDATA[{
-  "uiKindId": "Widget"
-}]]></component>
+  <component name="ProjectStatusUIService">{
+  &quot;uiKindId&quot;: &quot;Widget&quot;
+}</component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "PlatformIO.PlatformIO.executor": "Run",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/sasha/Developer/Line-Follower",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "settings.sync",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;PlatformIO.PlatformIO.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/sasha/Developer/Line-Follower&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
-      <method v="2">
-        <option name="PlatformioBuildBeforeRun" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
   </component>
   <component name="RustProjectSettings">
@@ -152,7 +120,10 @@
       <option name="presentableId" value="Default" />
       <updated>1773837007412</updated>
       <workItem from="1773837008769" duration="1429000" />
-      <workItem from="1773838774160" duration="3842000" />
+      <workItem from="1773838774160" duration="7410000" />
+      <workItem from="1773850045178" duration="245000" />
+      <workItem from="1773855547319" duration="1812000" />
+      <workItem from="1773858811780" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
@@ -162,7 +133,23 @@
       <option name="project" value="LOCAL" />
       <updated>1773838947540</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Binary to decimal conversion">
+      <option name="closed" value="true" />
+      <created>1773842849947</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773842849947</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Sensor constants added">
+      <option name="closed" value="true" />
+      <created>1773844671244</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773844671244</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +168,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base" />
+    <MESSAGE value="Binary to decimal conversion" />
+    <MESSAGE value="Sensor constants added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sensor constants added" />
   </component>
 </project>

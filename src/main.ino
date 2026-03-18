@@ -8,22 +8,32 @@
 
 void setup() {
     M5.begin();
-    int cap0 = 1; // Ok 1
-    int cap1 = 1; // Ok 2
-    int cap2 = 1; // Ok 4
-    int cap3 = 1; // OK 8
-    int cap4 = 1; // Ok 16
-    trad(cap4, cap3, cap2, cap1, cap0);
+
+    pinMode(SENSOR_0, INPUT);
+    pinMode(SENSOR_1, INPUT);
+    pinMode(SENSOR_2, INPUT);
+    pinMode(SENSOR_3, INPUT);
+    pinMode(SENSOR_4, INPUT);
 }
 
 void loop() {
-// write your code here
+    int cap0 = 0;// digitalRead(SENSOR_0); // Ok 1
+    int cap1 = 0;// digitalRead(SENSOR_1); // Ok 2
+    int cap2 = 0;// digitalRead(SENSOR_2); // Ok 4
+    int cap3 = 0;// digitalRead(SENSOR_3); // OK 8
+    int cap4 = 0;// digitalRead(SENSOR_4); // Ok 16
+
+    trad(cap4, cap3, cap2, cap1, cap0);
+
+    // delay(1000);
 }
 
 int trad(int cap4, int cap3, int cap2, int cap1, int cap0) {
-    M5.Lcd.setTextSize(12);
+    M5.Lcd.setTextSize(1);
     int result = (cap4 * 16) + (cap3 * 8) + (cap2 * 4) + (cap1 * 2) + (cap0);
-    M5.Lcd.println(result);
+    M5.Lcd.print(result);
+    M5.Lcd.clear();
+    M5.Lcd.setCursor(10, 10);
 
     return result;
 }
