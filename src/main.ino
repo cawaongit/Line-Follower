@@ -6,8 +6,20 @@
 #define SENSOR_3 35
 #define SENSOR_4 21
 
+#define UNDEFINED_READ 60
+
+int readIndex;
+int history[10];
+
+
 void setup() {
     M5.begin();
+
+    readIndex = 0;
+
+    for (int i = 0; i < 10; i++) {
+        history[i] = UNDEFINED_READ; // Makes sure all values are at 0
+    }
 
     pinMode(SENSOR_0, INPUT);
     pinMode(SENSOR_1, INPUT);
