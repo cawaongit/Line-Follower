@@ -8,8 +8,13 @@
 
 #define UNDEFINED_READ 60
 
-int readIndex;
-int history[10];
+int readIndex = 0;
+int history[10]; // Put value read by captor every 20ms and rewrite the values if a value is written
+
+struct Instructions {
+    int left;
+    int right;
+};
 
 
 void setup() {
@@ -39,9 +44,16 @@ void loop() {
 
     int result = trad(cap4, cap3, cap2, cap1, cap0);
 
-    M5.Lcd.clear();
     M5.Lcd.setCursor(10, 10);
-    M5.Lcd.print(result);
+    M5.Lcd.clear();
+
+    readIndex++;
+    M5.Lcd.printf("%d: %d; ", readIndex, result);
+
+    delay(20);
+
+    // For one loop put just one value in the history, for the second loop the second one, the third loop... 10 times and then rewrite not replace all the values (this code replaces all the values) with 20 ms
+    // M5.Lcd.print(result);
 
     delay(500);
 }
