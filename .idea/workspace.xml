@@ -22,12 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Reworked a bit with new sensor">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.elf" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.elf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.map" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ino" afterDir="false" />
     </list>
@@ -38,6 +34,10 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="1002" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="m5stack-core-esp32-16M" />
   <component name="ExternalProjectsData">
@@ -54,14 +54,18 @@
     &quot;assignee&quot;: &quot;cawaongit&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/cawaongit/Line-Follower.git",
-    "accountId": "7ad95dc7-92d6-4485-bdd4-8dc425210639"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower.git&quot;,
+    &quot;accountId&quot;: &quot;f176fcf7-706b-4726-bdf9-3612a5f5ba4f&quot;
   }
-}]]></component>
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="SxWF3vYB" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="PlatformioLocalSettings">
     <option name="availableProjects">
@@ -114,6 +118,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;PlatformIO.PlatformIO.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -144,6 +149,9 @@
     <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
       <method v="2" />
     </configuration>
+    <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="/run/current-system/sw/bin" />
@@ -162,7 +170,9 @@
       <workItem from="1773858811780" duration="6000" />
       <workItem from="1774441699537" duration="2506000" />
       <workItem from="1774446672560" duration="747000" />
-      <workItem from="1774447843648" duration="3561000" />
+      <workItem from="1774981294381" duration="1448000" />
+      <workItem from="1774982756432" duration="3038000" />
+      <workItem from="1774985809209" duration="3017000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
