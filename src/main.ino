@@ -79,11 +79,19 @@ void setup() {
     }
 
     // Define pins
-    pinMode(SENSOR_0, INPUT);
-    pinMode(SENSOR_1, INPUT);
-    pinMode(SENSOR_2, INPUT);
-    pinMode(SENSOR_3, INPUT);
-    pinMode(SENSOR_4, INPUT);
+    if (NO_BOARD) {
+        pinMode(SENSOR_0, INPUT_PULLUP);
+        pinMode(SENSOR_1, INPUT_PULLUP);
+        pinMode(SENSOR_2, INPUT_PULLUP);
+        pinMode(SENSOR_3, INPUT_PULLUP);
+        pinMode(SENSOR_4, INPUT_PULLUP);
+    } else {
+        pinMode(SENSOR_0, INPUT);
+        pinMode(SENSOR_1, INPUT);
+        pinMode(SENSOR_2, INPUT);
+        pinMode(SENSOR_3, INPUT);
+        pinMode(SENSOR_4, INPUT);
+    }
 
     pinMode(MOTOR_RIGHT, OUTPUT);
     pinMode(MOTOR_LEFT, OUTPUT);
@@ -94,6 +102,9 @@ void setup() {
 }
 
 int transformInput() {
+    if (NO_BOARD)
+        return random(MAX_VALUE + 1); // Generate random value
+
     int value = 0;
 
     for (int i = 0; i < SENSOR_COUNT; i++) {
@@ -117,7 +128,7 @@ void debugDisplay() {
     int currentValue = history[readIndex];
 
     M5.Lcd.setCursor(10, 10);
-    M5.Lcd.printf("Read Index: %d", readIndex);
+    M5.Lcd.printf("Current value: %d", currentValue);
 }
 
 void move(int left, int right) {
@@ -154,8 +165,8 @@ void loop() {
 
     instruction action = LUT[actionValue];
 
-    // debugDisplay();
+    debugDisplay();
 
     move(action.leftSpeed, action.rightSpeed);
-    delay(250); // ~4 reads/sec
+    delay(500); // ~2 reads/sec
 }

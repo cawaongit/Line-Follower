@@ -21,19 +21,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Refactor: Reworked a lot of the current code, and added the LUT">
+    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="refactor: Added new platformIO Envs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/bootloader.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.elf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/partitions.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32/.sconsign313.dblite" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32/idedata.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/project.checksum" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/project.checksum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ino" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,6 +138,13 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1775682021190" />
+    <option name="spentUsd" value="0.02627975" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="9" />
+  </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -181,7 +177,7 @@
       <workItem from="1774446672560" duration="747000" />
       <workItem from="1774981294381" duration="1448000" />
       <workItem from="1774982756432" duration="3038000" />
-      <workItem from="1774985809209" duration="4311000" />
+      <workItem from="1774985809209" duration="5621000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
@@ -215,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774988888979</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactor: Added new platformIO Envs">
+      <option name="closed" value="true" />
+      <created>1774990199427</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1774990199427</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,6 +241,7 @@
     <MESSAGE value="Binary to decimal conversion" />
     <MESSAGE value="Sensor constants added" />
     <MESSAGE value="Refactor: Reworked a lot of the current code, and added the LUT" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Reworked a lot of the current code, and added the LUT" />
+    <MESSAGE value="refactor: Added new platformIO Envs" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Added new platformIO Envs" />
   </component>
 </project>
