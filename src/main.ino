@@ -14,6 +14,8 @@
 #define HISTORY_SIZE 10
 #define MAX_VALUE 31
 
+#define NO_BOARD NO_BOARD_FLAG // PlatformIO Compile Flag
+
 // Makes sure all values are way over the maximum possible value of the combined sensor
 #define UNDEFINED_READ MAX_VALUE + 10
 
@@ -88,6 +90,7 @@ void setup() {
     pinMode(INDICATOR, OUTPUT);
 
     M5.Lcd.setTextSize(2);
+    M5.Lcd.printf("Flag: %d", NO_BOARD);
 }
 
 int transformInput() {
@@ -112,8 +115,6 @@ void debugDisplay() {
     M5.Lcd.clear();
 
     int currentValue = history[readIndex];
-
-    M5.Lcd.setCursor(20, 30); M5.Lcd.printf("L2:%1d L1:%1d C:%1d R1:%1d R2:%1d \n",digitalRead(IR_L2),digitalRead(IR_L1),digitalRead(IR_C),digitalRead(IR_R1),digitalRead(IR_R2));
 
     M5.Lcd.setCursor(10, 10);
     M5.Lcd.printf("Read Index: %d", readIndex);
@@ -153,11 +154,7 @@ void loop() {
 
     instruction action = LUT[actionValue];
 
-    M5.Lcd.clear();
-    M5.Lcd.setCursor(10, 10);
-    M5.Lcd.printf("%d: %d; ", readIndex, value);
-
-    debugDisplay();
+    // debugDisplay();
 
     move(action.leftSpeed, action.rightSpeed);
     delay(250); // ~4 reads/sec

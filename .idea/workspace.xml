@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="3" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="5" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
   </component>
   <component name="CMakeProjectFlavorService">
@@ -21,10 +21,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Reworked a bit with new sensor">
+    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="Refactor: Reworked a lot of the current code, and added the LUT">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/.sconsign313.dblite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/bootloader.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/firmware.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/idedata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32-16M/partitions.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32/.sconsign313.dblite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/m5stack-core-esp32/idedata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.pio/build/project.checksum" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/project.checksum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/platformio.ini" beforeDir="false" afterPath="$PROJECT_DIR$/platformio.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ino" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +48,7 @@
     <option name="cachedIndexableFilesCount" value="1002" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="m5stack-core-esp32-16M" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="testing" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -172,7 +181,7 @@
       <workItem from="1774446672560" duration="747000" />
       <workItem from="1774981294381" duration="1448000" />
       <workItem from="1774982756432" duration="3038000" />
-      <workItem from="1774985809209" duration="3017000" />
+      <workItem from="1774985809209" duration="4311000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
@@ -198,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773844671244</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refactor: Reworked a lot of the current code, and added the LUT">
+      <option name="closed" value="true" />
+      <created>1774988888978</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1774988888979</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +236,7 @@
     <MESSAGE value="Base" />
     <MESSAGE value="Binary to decimal conversion" />
     <MESSAGE value="Sensor constants added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sensor constants added" />
+    <MESSAGE value="Refactor: Reworked a lot of the current code, and added the LUT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: Reworked a lot of the current code, and added the LUT" />
   </component>
 </project>
