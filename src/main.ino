@@ -6,13 +6,19 @@
 #define SENSOR_3 35
 #define SENSOR_4 21
 
-#define MOTOR_RIGHT 16
-#define MOTOR_LEFT 17
+#define MOTOR_RIGHT 16 // Same channel as pin
+#define MOTOR_LEFT 17 // Same channel as pin
 #define INDICATOR 5
 
 #define SENSOR_COUNT 5
 #define HISTORY_SIZE 10
 #define MAX_VALUE 31
+
+// LEDC
+#define MOTOR_RIGHT_CHANNEL 1
+#define MOTOR_LEFT_CHANNEL 2
+#define RESOLUTION_BITS 8
+#define FREQUENCY 50
 
 #define NO_BOARD NO_BOARD_FLAG // PlatformIO Compile Flag
 
@@ -26,12 +32,12 @@ int freq[MAX_VALUE];
 int lastReads[SENSOR_COUNT];
 
 struct instruction {
-    int rightSpeed;
-    int leftSpeed;
+    byte rightSpeed;
+    byte leftSpeed;
 };
 
-struct instruction LUT[] = {
-    {0, 0 }, // 0  - 0 0 0 0 0 - No Sensor active
+instruction LUT[] = {
+    {0, 0 }, // 0  - 0 0 0 0 0 - All Sensors active
     {}, // 1  - 0 0 0 0 1 -
     {}, // 2  - 0 0 0 1 0 -
     {}, // 3  - 0 0 0 1 1 -
@@ -62,7 +68,7 @@ struct instruction LUT[] = {
     {}, // 28 - 1 1 1 0 0 -
     {}, // 29 - 1 1 1 0 1 -
     {}, // 30 - 1 1 1 1 0 -
-    {}, // 31 - 1 1 1 1 1 - All Sensors active
+    {255, 255}, // 31 - 1 1 1 1 1 - No sensors active
 };
 
 void setup() {
@@ -93,8 +99,14 @@ void setup() {
         pinMode(SENSOR_4, INPUT);
     }
 
-    pinMode(MOTOR_RIGHT, OUTPUT);
-    pinMode(MOTOR_LEFT, OUTPUT);
+    ledcSetup(MOTOR_RIGHT_CHANNEL, FREQUENCY, RESOLUTION_BITS);
+    ledcAttachPin(MOTOR_RIGHT, MOTOR_RIGHT_CHANNEL);
+    ledcWrite(MOTOR_RIGHT_CHANNEL, 0);
+
+    ledcSetup(MOTOR_LEFT_CHANNEL, FREQUENCY, RESOLUTION_BITS);
+    ledcAttachPin(MOTOR_LEFT, MOTOR_LEFT_CHANNEL);
+    ledcWrite(MOTOR_LEFT_CHANNEL, 0);
+
     pinMode(INDICATOR, OUTPUT);
 
     M5.Lcd.setTextSize(2);
@@ -122,22 +134,33 @@ void updateIndex() {
     }
 }
 
-void debugDisplay() {
-    M5.Lcd.clear();
-
+void debugDisplay(int speedLeft, int speedRight) {
     int currentValue = history[readIndex];
 
+    M5.Lcd.clear();
+    M5.Lcd.setTextSize(2);
     M5.Lcd.setCursor(10, 10);
-    M5.Lcd.printf("Current value: %d", currentValue);
+    M5.Lcd.printf("%d", speedLeft);
+    M5.Lcd.setCursor(290, 10);
+    M5.Lcd.printf("%d", speedRight);
+
+    M5.Lcd.setCursor(150, 100);
+    M5.Lcd.setTextSize(3);
+    M5.Lcd.printf("%d", currentValue);
+
+    M5.Lcd.setTextSize(2);
+    M5.Lcd.setCursor(0, 200);
+    for (int i = 0; i < SENSOR_COUNT; i++) {
+        M5.Lcd.printf("S%d:%d ", i + 1, !lastReads[i]);
+    }
 }
 
 void move(int left, int right) {
-    // TODO: Implement motors
+    ledcWrite(MOTOR_LEFT_CHANNEL, left);
+    ledcWrite(MOTOR_RIGHT_CHANNEL, right);
 }
 
 void loop() {
-    updateIndex();
-
     lastReads[0] = !digitalRead(SENSOR_0); // ^ 1
     lastReads[1] = !digitalRead(SENSOR_1); // ^ 2
     lastReads[2] = !digitalRead(SENSOR_2); // ^ 4
@@ -165,8 +188,9 @@ void loop() {
 
     instruction action = LUT[actionValue];
 
-    debugDisplay();
+    debugDisplay(action.leftSpeed, action.rightSpeed);
 
     move(action.leftSpeed, action.rightSpeed);
+    updateIndex();
     delay(500); // ~2 reads/sec
 }
