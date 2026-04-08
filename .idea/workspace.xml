@@ -34,7 +34,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="2481" />
+    <option name="cachedIndexableFilesCount" value="1704" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="prod-M16" />
@@ -54,8 +54,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower.git&quot;,
-    &quot;accountId&quot;: &quot;f176fcf7-706b-4726-bdf9-3612a5f5ba4f&quot;
+    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower&quot;,
+    &quot;accountId&quot;: &quot;24b801df-3de3-4122-ab45-696bc5e49a02&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -140,16 +140,19 @@
 }</component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1775682021190" />
-    <option name="spentUsd" value="0.02627975" />
+    <option name="spentUsd" value="0.07524569" />
   </component>
   <component name="RecapUselessUpdatesCounter">
-    <option name="suspendCountdown" value="9" />
+    <option name="suspendCountdown" value="3" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
+      <method v="2" />
     </configuration>
     <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
       <method v="2" />
@@ -178,6 +181,8 @@
       <workItem from="1774981294381" duration="1448000" />
       <workItem from="1774982756432" duration="3038000" />
       <workItem from="1774985809209" duration="5621000" />
+      <workItem from="1775547306255" duration="2321000" />
+      <workItem from="1775645393150" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
