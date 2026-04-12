@@ -6,6 +6,10 @@
 #define SENSOR_3 13
 #define SENSOR_4 34
 
+#define BTN_A 39
+#define BTN_B 38
+#define BTN_C 37
+
 #define MOTOR_RIGHT 16 // Same channel as pin
 #define MOTOR_LEFT 17 // Same channel as pin
 #define INDICATOR 5
@@ -14,36 +18,33 @@
 #define HISTORY_SIZE 10
 #define MAX_VALUE 31
 
-#define BASE_SPEED 100
+#define BASE_SPEED 50
 
 // LEDC
 #define MOTOR_RIGHT_CHANNEL 1
 #define MOTOR_LEFT_CHANNEL 2
-#define RESOLUTION_BITS 8
-#define FREQUENCY 50
+#define RESOLUTION_BITS 8 // Maximum value of speed is 1023 with 10 bits
+#define FREQUENCY 40
 
 #define NO_BOARD NO_BOARD_FLAG // PlatformIO Compile Flag
 
 // Makes sure all values are way over the maximum possible value of the combined sensor
 #define UNDEFINED_READ MAX_VALUE + 10
 
-int readIndex = 0;
-int history[HISTORY_SIZE];
-int freq[MAX_VALUE + 1];
 
 int lastReads[SENSOR_COUNT];
 
+int additionalLeftSpeed = 0;
+int additionalRightSpeed = 0;
+
 void setup() {
     M5.begin();
-    readIndex = 0;
 
     for (int i = 0; i < HISTORY_SIZE; i++) {
         // Set all the history to the impossible value to make sure we can differentiate undefined values from actual values
-        history[i] = UNDEFINED_READ;
     }
 
     for (int i = 0; i < MAX_VALUE; i++) {
-        freq[i] = 0;
     }
 
     // Define pins
@@ -59,6 +60,9 @@ void setup() {
         pinMode(SENSOR_2, INPUT);
         pinMode(SENSOR_3, INPUT);
         pinMode(SENSOR_4, INPUT);
+        pinMode(BTN_A, INPUT);
+        pinMode(BTN_B, INPUT);
+        pinMode(BTN_C, INPUT);
     }
 
     ledcSetup(MOTOR_RIGHT_CHANNEL, FREQUENCY, RESOLUTION_BITS);
@@ -87,47 +91,78 @@ int transformInput() {
 }
 
 void updateIndex() {
-    readIndex = (readIndex + 1) % HISTORY_SIZE;
 }
 
 void debugDisplay(int speedLeft, int speedRight) {
-    int currentValue = history[readIndex];
-
     M5.Lcd.clear();
     M5.Lcd.setTextSize(2);
+    M5.Lcd.setCursor(125, 10);
+    M5.Lcd.printf("Total");
     M5.Lcd.setCursor(10, 10);
     M5.Lcd.printf("%d", speedLeft);
     M5.Lcd.setCursor(280, 10);
     M5.Lcd.printf("%d", speedRight);
 
-    M5.Lcd.setCursor(150, 100);
-    M5.Lcd.setTextSize(3);
-    M5.Lcd.printf("%d", currentValue);
+    M5.Lcd.setCursor(130, 50);
+    M5.Lcd.printf("Base");
+    M5.Lcd.setCursor(10, 50);
+    M5.Lcd.printf("%d", BASE_SPEED);
+    M5.Lcd.setCursor(280, 50);
+    M5.Lcd.printf("%d", BASE_SPEED);
+
+    M5.Lcd.setCursor(110, 90);
+    M5.Lcd.printf("Modifier");
+    M5.Lcd.setCursor(10, 90);
+    M5.Lcd.printf("%d", additionalLeftSpeed);
+    M5.Lcd.setCursor(280, 90);
+    M5.Lcd.printf("%d", additionalRightSpeed);
 
     M5.Lcd.setTextSize(2);
     M5.Lcd.setCursor(0, 200);
 
     for (int i = 0; i < SENSOR_COUNT; i++) {
-        M5.Lcd.printf("S%d:%d ", SENSOR_COUNT - i, !lastReads[SENSOR_COUNT - i - 1]);
+        M5.Lcd.printf("S%d:%d ", SENSOR_COUNT - i, lastReads[SENSOR_COUNT - i - 1]);
     }
 }
 
 void move(int left, int right) {
-    ledcWrite(MOTOR_LEFT_CHANNEL, left);
+    // The robot goes on the right with same speed on left and right so - on the left motor and + on the right motor
+    ledcWrite(MOTOR_LEFT_CHANNEL, left - 13); // Between 12 and 13
     ledcWrite(MOTOR_RIGHT_CHANNEL, right);
 }
 
 void loop() {
+    M5.update();
     int err = 0;
 
-    err += digitalRead(SENSOR_0) ? -2 : 0;
-    err += digitalRead(SENSOR_1) ? -1 : 0;
-    err += digitalRead(SENSOR_3) ? 1 : 0;
-    err += digitalRead(SENSOR_4) ? 2 : 0;
+    lastReads[0] = digitalRead(SENSOR_0);
+    lastReads[1] = digitalRead(SENSOR_1);
+    lastReads[2] = digitalRead(SENSOR_2);
+    lastReads[3] = digitalRead(SENSOR_3);
+    lastReads[4] = digitalRead(SENSOR_4);
 
-    int speedLeft = BASE_SPEED + err * 2;
-    int speedRight = BASE_SPEED - err * 2;
+    err += lastReads[0] ? -2 : 0;
+    err += lastReads[1] ? -1 : 0;
+    err += lastReads[3] ? 1 : 0;
+    err += lastReads[4] ? 2 : 0;
+
+    if (!digitalRead(BTN_A)) {
+        additionalLeftSpeed += 1;
+        delay(200);
+    }
+
+    if (digitalRead(BTN_B)) {
+        Serial.println("B pressed");
+    }
+
+    if (!digitalRead(BTN_C)) {
+        additionalRightSpeed += 1;
+        delay(200);
+    }
+
+    int speedLeft = BASE_SPEED + err * 2 + additionalLeftSpeed;
+    int speedRight = BASE_SPEED - err * 2 + additionalRightSpeed;
 
     debugDisplay(speedLeft, speedRight);
-    move(70, 70);
+    move(speedLeft, speedRight);
 }

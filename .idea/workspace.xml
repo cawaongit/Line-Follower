@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="5" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="3" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
   </component>
   <component name="CMakeProjectFlavorService">
@@ -54,8 +54,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower&quot;,
-    &quot;accountId&quot;: &quot;24b801df-3de3-4122-ab45-696bc5e49a02&quot;
+    &quot;url&quot;: &quot;https://github.com/cawaongit/Line-Follower.git&quot;,
+    &quot;accountId&quot;: &quot;7ad95dc7-92d6-4485-bdd4-8dc425210639&quot;
   }
 }</component>
   <component name="MacroExpansionManager">
@@ -127,7 +127,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/raftdev/Document/Dev/Line-Follower/platformio.ini&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/sasha/Developer/Line-Follower&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -150,6 +150,9 @@
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
+      <method v="2" />
     </configuration>
     <configuration name="PlatformIO" type="platformio" factoryName="PlatformIO Debug" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Line-Follower" TARGET_NAME="PlatformIO" CONFIG_NAME="PlatformIO">
       <method v="2" />
@@ -183,6 +186,12 @@
       <workItem from="1774985809209" duration="5621000" />
       <workItem from="1775547306255" duration="2321000" />
       <workItem from="1775645393150" duration="10000" />
+      <workItem from="1775646605589" duration="10477000" />
+      <workItem from="1775661244870" duration="40000" />
+      <workItem from="1775829591921" duration="150000" />
+      <workItem from="1775832272082" duration="151000" />
+      <workItem from="1775833319415" duration="137000" />
+      <workItem from="1775833644772" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
