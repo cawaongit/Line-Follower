@@ -10,37 +10,35 @@
 #define BTN_B 38
 #define BTN_C 37
 
-#define MOTOR_RIGHT 16 // Same channel as pin
-#define MOTOR_LEFT 17 // Same channel as pin
+#define MOTOR_RIGHT 16
+#define MOTOR_LEFT 17
 #define INDICATOR 5
 
 #define SENSOR_COUNT 5
-#define HISTORY_SIZE 10
-#define MAX_VALUE 31
-
-#define BASE_SPEED 70
-#define CORRECTION_MULTIPLIER 2
-#define EXTERNAL_SENSORS_MULTIPLIER 3
-
-#define MAX_SETTING_MODE 4
 
 // LEDC
 #define MOTOR_RIGHT_CHANNEL 1
 #define MOTOR_LEFT_CHANNEL 2
-#define RESOLUTION_BITS 8 // Maximum value of speed is 1023 with 10 bits
-#define FREQUENCY 40
+#define RESOLUTION_BITS 10
+#define FREQUENCY 100
+#define MAX_SPEED 1023
+#define MIN_SPEED 0 // 230 - Temp 0
+
+// Settings
+#define BASE_SPEED 250 // Base Speed which is modified depending on the steering
+#define STEERING_SCALE 250 // Steering value scaled against this value
+#define DEAD_ZONE 0.05 // Correction dead zone, used to not correct if the steering error is too small
+#define CENTER_SENSOR_PENALTY 0.8 // Used to penalize the correction if the center sensor is on the line, prevents the bot from freaking out to much
+
+// Reduces speeds at turns
+#define REDUCED_SPEED_THRESHOLD 0.20 // The steering value threshold at which the speed is reduced, this is used in case the turn is sharp and slower speeds should be used to lose the line
+#define SPEED_REDUCTION 0.50 // Speed reduction factor, used to reduce the speed
 
 int reads[SENSOR_COUNT];
-int accumulatedError[SENSOR_COUNT];
 
-// Parameters
-int selectionMode = 0;
-
-int additionalLeftSpeed = 0;
-int additionalRightSpeed = 0;
-int externalPinWeight = 2;
-int correctionMultiplier = 2;
-int baseSpeed = 70;
+float weights[5] = {-1, -0.5, 0, 0.5, 1};
+float lastError = 0;
+int lostLineTime = 0;
 
 void setup() {
     M5.begin();
@@ -66,70 +64,20 @@ void setup() {
     pinMode(INDICATOR, OUTPUT);
 }
 
-void debugDisplay(int speedLeft, int speedRight) {
+void debugDisplay(float steering, int speedLeft, int speedRight) {
     M5.Lcd.clear();
     M5.Lcd.setTextSize(2);
-    M5.Lcd.setCursor(125, 10);
-    M5.Lcd.printf("Total");
+
+    M5.Lcd.setCursor(120, 10);
+    M5.Lcd.printf("Motors");
     M5.Lcd.setCursor(10, 10);
-    M5.Lcd.printf("%d", speedLeft + additionalLeftSpeed);
-    M5.Lcd.setCursor(280, 10);
-    M5.Lcd.printf("%d", speedRight + additionalRightSpeed);
-
-    M5.Lcd.setCursor(130, 50);
-    M5.Lcd.printf("Base");
-    M5.Lcd.setCursor(10, 50);
-    M5.Lcd.printf("%d", speedRight);
-    M5.Lcd.setCursor(280, 50);
     M5.Lcd.printf("%d", speedLeft);
+    M5.Lcd.setCursor(280, 10);
+    M5.Lcd.printf("%d", speedRight);
 
-    M5.Lcd.setCursor(80, 90);
-    M5.Lcd.print("Settings Mode: ");
-
-    switch (selectionMode) {
-        case 0:
-            M5.Lcd.setCursor(40, 110);
-            M5.Lcd.printf("Add Correction Speed");
-
-            M5.Lcd.setCursor(10, 135);
-            M5.Lcd.printf("L: %d", additionalLeftSpeed);
-            M5.Lcd.setCursor(260, 135);
-            M5.Lcd.printf("R: %d", additionalRightSpeed);
-            break;
-        case 1:
-            M5.Lcd.setCursor(10, 110);
-            M5.Lcd.printf("Subtract Correction Speed");
-
-            M5.Lcd.setCursor(10, 135);
-            M5.Lcd.printf("L: %d", additionalLeftSpeed);
-            M5.Lcd.setCursor(260, 135);
-            M5.Lcd.printf("R: %d", additionalRightSpeed);
-            break;
-        case 2:
-            M5.Lcd.setCursor(40, 110);
-            M5.Lcd.printf("External Pins Weight");
-            M5.Lcd.setCursor(150, 135);
-            M5.Lcd.printf("%d", externalPinWeight);
-            break;
-        case 3:
-            M5.Lcd.setCursor(30, 110);
-            M5.Lcd.printf("Correction Multiplier");
-            M5.Lcd.setCursor(150, 135);
-            M5.Lcd.printf("%d", correctionMultiplier);
-            break;
-        case 4:
-            M5.Lcd.setCursor(100, 110);
-            M5.Lcd.printf("Base Speed");
-            M5.Lcd.setCursor(150, 135);
-            M5.Lcd.printf("%d",baseSpeed);
-            break;
-        default:
-            M5.Lcd.setCursor(40, 110);
-            M5.Lcd.printf("Undefined");
-    }
-
-    M5.Lcd.setCursor(130, 105);
-    M5.Lcd.printf("");
+    M5.Lcd.setCursor(97, 90);
+    M5.Lcd.setTextSize(5);
+    M5.Lcd.printf("%.2f", steering);
 
     M5.Lcd.setTextSize(2);
     M5.Lcd.setCursor(10, 200);
@@ -139,70 +87,27 @@ void debugDisplay(int speedLeft, int speedRight) {
     }
 }
 
-void move(int left, int right) {
-    debugDisplay(left, right);
-    ledcWrite(MOTOR_LEFT_CHANNEL, left + additionalLeftSpeed);
-    ledcWrite(MOTOR_RIGHT_CHANNEL, right + additionalRightSpeed);
-}
+void move(float steering) {
+    steering = constrain(steering, -1, 1);
 
-void handleSettings() {
-    if (!digitalRead(BTN_B)) {
-        selectionMode++;
-        if (selectionMode > MAX_SETTING_MODE) {
-            selectionMode = 0;
-        }
+    int left = (int) (BASE_SPEED + steering * STEERING_SCALE);
+    int right = (int) (BASE_SPEED - steering * STEERING_SCALE);
 
-        delay(200);
+    if (fabs(steering) > REDUCED_SPEED_THRESHOLD) {
+        if (steering < 0)
+            left = 0;
+        else
+            right = 0;
     }
 
-    if (!digitalRead(BTN_A)) {
-        switch (selectionMode) {
-            case 0:
-                additionalLeftSpeed++;
-                break;
-            case 1:
-                additionalLeftSpeed--;
-                break;
-            case 2:
-                externalPinWeight++;
-                break;
-            case 3:
-                correctionMultiplier++;
-                break;
-            case 4:
-                baseSpeed += 10;
-                break;
-        }
+    debugDisplay(steering, left, right);
 
-        delay(200);
-    }
-
-    if (!digitalRead(BTN_C)) {
-        switch (selectionMode) {
-            case 0:
-                additionalRightSpeed++;
-                break;
-            case 1:
-                additionalRightSpeed--;
-                break;
-            case 2:
-                externalPinWeight--;
-                break;
-            case 3:
-                correctionMultiplier--;
-                break;
-            case 4:
-                baseSpeed -= 10;
-                break;
-        }
-
-        delay(200);
-    }
+    ledcWrite(MOTOR_LEFT_CHANNEL, constrain(left, MIN_SPEED, MAX_SPEED));
+    ledcWrite(MOTOR_RIGHT_CHANNEL, constrain(right, MIN_SPEED, MAX_SPEED));
 }
 
 void loop() {
     M5.update();
-    handleSettings();
 
     reads[0] = digitalRead(SENSOR_0);
     reads[1] = digitalRead(SENSOR_1);
@@ -210,31 +115,35 @@ void loop() {
     reads[3] = digitalRead(SENSOR_3);
     reads[4] = digitalRead(SENSOR_4);
 
-    int err = 0;
-
-    err += -(reads[0] * accumulatedError[0] + externalPinWeight);
-    err += -(reads[1] * accumulatedError[1]);
-    err += reads[0] * accumulatedError[3];
-    err += reads[1] * accumulatedError[4] + externalPinWeight;
-
-    bool centered = !reads[2] && reads[1] == reads[3];
-
-    if (centered) {
-        for (int i = 0; i < SENSOR_COUNT; i++) {
-            accumulatedError[i] = 0;
-        }
-
-        move(BASE_SPEED, BASE_SPEED);
-        return;
-    }
+    float error = 0.0f;
+    int offLineSensors = 0;
 
     for (int i = 0; i < SENSOR_COUNT; i++) {
-        accumulatedError[i] += reads[i];
+        if (reads[i] == HIGH) {
+            error += weights[i];
+            offLineSensors++;
+        }
     }
 
-    int speedLeft = baseSpeed + err ;
-    int speedRight = baseSpeed - err;
+    bool centered = reads[2] == LOW;
 
-    move(speedLeft, speedRight);
-    delay(10);
+    if (offLineSensors == SENSOR_COUNT) {
+        error = lastError;
+        lostLineTime++;
+    } else {
+        if (offLineSensors > 0)
+            error /= offLineSensors;
+
+        lastError = error;
+        lostLineTime = 0;
+    }
+
+    float steering = error * (lostLineTime / 20 + 1);
+    if (centered)
+        steering *= CENTER_SENSOR_PENALTY;
+
+    if (fabs(steering) < DEAD_ZONE)
+        steering = 0;
+
+    move(steering);
 }
