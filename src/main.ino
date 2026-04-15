@@ -18,7 +18,11 @@
 #define HISTORY_SIZE 10
 #define MAX_VALUE 31
 
-#define BASE_SPEED 50
+#define BASE_SPEED 70
+#define CORRECTION_MULTIPLIER 2
+#define EXTERNAL_SENSORS_MULTIPLIER 3
+
+#define MAX_SETTING_MODE 4
 
 // LEDC
 #define MOTOR_RIGHT_CHANNEL 1
@@ -26,44 +30,30 @@
 #define RESOLUTION_BITS 8 // Maximum value of speed is 1023 with 10 bits
 #define FREQUENCY 40
 
-#define NO_BOARD NO_BOARD_FLAG // PlatformIO Compile Flag
+int reads[SENSOR_COUNT];
+int accumulatedError[SENSOR_COUNT];
 
-// Makes sure all values are way over the maximum possible value of the combined sensor
-#define UNDEFINED_READ MAX_VALUE + 10
-
-
-int lastReads[SENSOR_COUNT];
+// Parameters
+int selectionMode = 0;
 
 int additionalLeftSpeed = 0;
 int additionalRightSpeed = 0;
+int externalPinWeight = 2;
+int correctionMultiplier = 2;
+int baseSpeed = 70;
 
 void setup() {
     M5.begin();
 
-    for (int i = 0; i < HISTORY_SIZE; i++) {
-        // Set all the history to the impossible value to make sure we can differentiate undefined values from actual values
-    }
-
-    for (int i = 0; i < MAX_VALUE; i++) {
-    }
-
     // Define pins
-    if (NO_BOARD) {
-        pinMode(SENSOR_0, INPUT_PULLUP);
-        pinMode(SENSOR_1, INPUT_PULLUP);
-        pinMode(SENSOR_2, INPUT_PULLUP);
-        pinMode(SENSOR_3, INPUT_PULLUP);
-        pinMode(SENSOR_4, INPUT_PULLUP);
-    } else {
-        pinMode(SENSOR_0, INPUT);
-        pinMode(SENSOR_1, INPUT);
-        pinMode(SENSOR_2, INPUT);
-        pinMode(SENSOR_3, INPUT);
-        pinMode(SENSOR_4, INPUT);
-        pinMode(BTN_A, INPUT);
-        pinMode(BTN_B, INPUT);
-        pinMode(BTN_C, INPUT);
-    }
+    pinMode(SENSOR_0, INPUT);
+    pinMode(SENSOR_1, INPUT);
+    pinMode(SENSOR_2, INPUT);
+    pinMode(SENSOR_3, INPUT);
+    pinMode(SENSOR_4, INPUT);
+    pinMode(BTN_A, INPUT);
+    pinMode(BTN_B, INPUT);
+    pinMode(BTN_C, INPUT);
 
     ledcSetup(MOTOR_RIGHT_CHANNEL, FREQUENCY, RESOLUTION_BITS);
     ledcAttachPin(MOTOR_RIGHT, MOTOR_RIGHT_CHANNEL);
@@ -74,23 +64,6 @@ void setup() {
     ledcWrite(MOTOR_LEFT_CHANNEL, 0);
 
     pinMode(INDICATOR, OUTPUT);
-
-    M5.Lcd.setTextSize(2);
-    M5.Lcd.printf("Flag: %d", NO_BOARD);
-}
-
-int transformInput() {
-    if (NO_BOARD)
-        return random(MAX_VALUE + 1);
-
-    int value = 0;
-    for (int i = 0; i < SENSOR_COUNT; i++) {
-        value |= (lastReads[i] & 1) << i;
-    }
-    return value;
-}
-
-void updateIndex() {
 }
 
 void debugDisplay(int speedLeft, int speedRight) {
@@ -99,70 +72,169 @@ void debugDisplay(int speedLeft, int speedRight) {
     M5.Lcd.setCursor(125, 10);
     M5.Lcd.printf("Total");
     M5.Lcd.setCursor(10, 10);
-    M5.Lcd.printf("%d", speedLeft);
+    M5.Lcd.printf("%d", speedLeft + additionalLeftSpeed);
     M5.Lcd.setCursor(280, 10);
-    M5.Lcd.printf("%d", speedRight);
+    M5.Lcd.printf("%d", speedRight + additionalRightSpeed);
 
     M5.Lcd.setCursor(130, 50);
     M5.Lcd.printf("Base");
     M5.Lcd.setCursor(10, 50);
-    M5.Lcd.printf("%d", BASE_SPEED);
+    M5.Lcd.printf("%d", speedRight);
     M5.Lcd.setCursor(280, 50);
-    M5.Lcd.printf("%d", BASE_SPEED);
+    M5.Lcd.printf("%d", speedLeft);
 
-    M5.Lcd.setCursor(110, 90);
-    M5.Lcd.printf("Modifier");
-    M5.Lcd.setCursor(10, 90);
-    M5.Lcd.printf("%d", additionalLeftSpeed);
-    M5.Lcd.setCursor(280, 90);
-    M5.Lcd.printf("%d", additionalRightSpeed);
+    M5.Lcd.setCursor(80, 90);
+    M5.Lcd.print("Settings Mode: ");
+
+    switch (selectionMode) {
+        case 0:
+            M5.Lcd.setCursor(40, 110);
+            M5.Lcd.printf("Add Correction Speed");
+
+            M5.Lcd.setCursor(10, 135);
+            M5.Lcd.printf("L: %d", additionalLeftSpeed);
+            M5.Lcd.setCursor(260, 135);
+            M5.Lcd.printf("R: %d", additionalRightSpeed);
+            break;
+        case 1:
+            M5.Lcd.setCursor(10, 110);
+            M5.Lcd.printf("Subtract Correction Speed");
+
+            M5.Lcd.setCursor(10, 135);
+            M5.Lcd.printf("L: %d", additionalLeftSpeed);
+            M5.Lcd.setCursor(260, 135);
+            M5.Lcd.printf("R: %d", additionalRightSpeed);
+            break;
+        case 2:
+            M5.Lcd.setCursor(40, 110);
+            M5.Lcd.printf("External Pins Weight");
+            M5.Lcd.setCursor(150, 135);
+            M5.Lcd.printf("%d", externalPinWeight);
+            break;
+        case 3:
+            M5.Lcd.setCursor(30, 110);
+            M5.Lcd.printf("Correction Multiplier");
+            M5.Lcd.setCursor(150, 135);
+            M5.Lcd.printf("%d", correctionMultiplier);
+            break;
+        case 4:
+            M5.Lcd.setCursor(100, 110);
+            M5.Lcd.printf("Base Speed");
+            M5.Lcd.setCursor(150, 135);
+            M5.Lcd.printf("%d",baseSpeed);
+            break;
+        default:
+            M5.Lcd.setCursor(40, 110);
+            M5.Lcd.printf("Undefined");
+    }
+
+    M5.Lcd.setCursor(130, 105);
+    M5.Lcd.printf("");
 
     M5.Lcd.setTextSize(2);
-    M5.Lcd.setCursor(0, 200);
+    M5.Lcd.setCursor(10, 200);
 
     for (int i = 0; i < SENSOR_COUNT; i++) {
-        M5.Lcd.printf("S%d:%d ", SENSOR_COUNT - i, lastReads[SENSOR_COUNT - i - 1]);
+        M5.Lcd.printf("S%d:%d ", SENSOR_COUNT - i, reads[SENSOR_COUNT - i - 1]);
     }
 }
 
 void move(int left, int right) {
-    // The robot goes on the right with same speed on left and right so - on the left motor and + on the right motor
-    ledcWrite(MOTOR_LEFT_CHANNEL, left - 13); // Between 12 and 13
-    ledcWrite(MOTOR_RIGHT_CHANNEL, right);
+    debugDisplay(left, right);
+    ledcWrite(MOTOR_LEFT_CHANNEL, left + additionalLeftSpeed);
+    ledcWrite(MOTOR_RIGHT_CHANNEL, right + additionalRightSpeed);
+}
+
+void handleSettings() {
+    if (!digitalRead(BTN_B)) {
+        selectionMode++;
+        if (selectionMode > MAX_SETTING_MODE) {
+            selectionMode = 0;
+        }
+
+        delay(200);
+    }
+
+    if (!digitalRead(BTN_A)) {
+        switch (selectionMode) {
+            case 0:
+                additionalLeftSpeed++;
+                break;
+            case 1:
+                additionalLeftSpeed--;
+                break;
+            case 2:
+                externalPinWeight++;
+                break;
+            case 3:
+                correctionMultiplier++;
+                break;
+            case 4:
+                baseSpeed += 10;
+                break;
+        }
+
+        delay(200);
+    }
+
+    if (!digitalRead(BTN_C)) {
+        switch (selectionMode) {
+            case 0:
+                additionalRightSpeed++;
+                break;
+            case 1:
+                additionalRightSpeed--;
+                break;
+            case 2:
+                externalPinWeight--;
+                break;
+            case 3:
+                correctionMultiplier--;
+                break;
+            case 4:
+                baseSpeed -= 10;
+                break;
+        }
+
+        delay(200);
+    }
 }
 
 void loop() {
     M5.update();
+    handleSettings();
+
+    reads[0] = digitalRead(SENSOR_0);
+    reads[1] = digitalRead(SENSOR_1);
+    reads[2] = digitalRead(SENSOR_2);
+    reads[3] = digitalRead(SENSOR_3);
+    reads[4] = digitalRead(SENSOR_4);
+
     int err = 0;
 
-    lastReads[0] = digitalRead(SENSOR_0);
-    lastReads[1] = digitalRead(SENSOR_1);
-    lastReads[2] = digitalRead(SENSOR_2);
-    lastReads[3] = digitalRead(SENSOR_3);
-    lastReads[4] = digitalRead(SENSOR_4);
+    err += -(reads[0] * accumulatedError[0] + externalPinWeight);
+    err += -(reads[1] * accumulatedError[1]);
+    err += reads[0] * accumulatedError[3];
+    err += reads[1] * accumulatedError[4] + externalPinWeight;
 
-    err += lastReads[0] ? -2 : 0;
-    err += lastReads[1] ? -1 : 0;
-    err += lastReads[3] ? 1 : 0;
-    err += lastReads[4] ? 2 : 0;
+    bool centered = !reads[2] && reads[1] == reads[3];
 
-    if (!digitalRead(BTN_A)) {
-        additionalLeftSpeed += 1;
-        delay(200);
+    if (centered) {
+        for (int i = 0; i < SENSOR_COUNT; i++) {
+            accumulatedError[i] = 0;
+        }
+
+        move(BASE_SPEED, BASE_SPEED);
+        return;
     }
 
-    if (digitalRead(BTN_B)) {
-        Serial.println("B pressed");
+    for (int i = 0; i < SENSOR_COUNT; i++) {
+        accumulatedError[i] += reads[i];
     }
 
-    if (!digitalRead(BTN_C)) {
-        additionalRightSpeed += 1;
-        delay(200);
-    }
+    int speedLeft = baseSpeed + err ;
+    int speedRight = baseSpeed - err;
 
-    int speedLeft = BASE_SPEED + err * 2 + additionalLeftSpeed;
-    int speedRight = BASE_SPEED - err * 2 + additionalRightSpeed;
-
-    debugDisplay(speedLeft, speedRight);
     move(speedLeft, speedRight);
+    delay(10);
 }
