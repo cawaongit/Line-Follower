@@ -26,9 +26,9 @@
 
 // Settings
 #define BASE_SPEED 250 // Base Speed which is modified depending on the steering
-#define STEERING_SCALE 250 // Steering value scaled against this value
+#define STEERING_SCALE 50 // Steering value scaled against this value
 #define DEAD_ZONE 0.05 // Correction dead zone, used to not correct if the steering error is too small
-#define CENTER_SENSOR_PENALTY 0.8 // Used to penalize the correction if the center sensor is on the line, prevents the bot from freaking out to much
+#define CENTER_SENSOR_PENALTY 0.6 // Used to penalize the correction if the center sensor is on the line, prevents the bot from freaking out to much
 
 // Reduces speeds at turns
 #define REDUCED_SPEED_THRESHOLD 0.20 // The steering value threshold at which the speed is reduced, this is used in case the turn is sharp and slower speeds should be used to lose the line
