@@ -22,12 +22,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="refactor: Added new platformIO Envs">
+    <list default="true" id="f77e1970-e208-4718-a6a4-c4ad7f2593a0" name="Changes" comment="refactor: Reworked the whole algorithm once again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/prod-M16/.sconsign313.dblite" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/prod-M16/.sconsign313.dblite" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.elf" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.elf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.map" beforeDir="false" afterPath="$PROJECT_DIR$/.pio/build/prod-M16/firmware.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.ino" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ino" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +202,7 @@
       <workItem from="1775832272082" duration="151000" />
       <workItem from="1775833319415" duration="137000" />
       <workItem from="1775833644772" duration="22000" />
-      <workItem from="1776463544820" duration="4919000" />
+      <workItem from="1776463544820" duration="5484000" />
     </task>
     <task id="LOCAL-00001" summary="Base">
       <option name="closed" value="true" />
@@ -245,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774990199427</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor: Reworked the whole algorithm once again">
+      <option name="closed" value="true" />
+      <created>1776468502202</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1776468502202</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,6 +275,7 @@
     <MESSAGE value="Sensor constants added" />
     <MESSAGE value="Refactor: Reworked a lot of the current code, and added the LUT" />
     <MESSAGE value="refactor: Added new platformIO Envs" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: Added new platformIO Envs" />
+    <MESSAGE value="refactor: Reworked the whole algorithm once again" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Reworked the whole algorithm once again" />
   </component>
 </project>

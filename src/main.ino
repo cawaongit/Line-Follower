@@ -41,7 +41,7 @@ unsigned long lastRefresh = 0;
 
 // Settings - Algorithm
 #define CORRECTION_STRENGTH 200
-#define DAMPING_STRENGTH 260
+#define DAMPING_STRENGTH 350
 
 int weights[SENSOR_COUNT] = {5, 1, 0, -1, -5};
 
@@ -189,7 +189,6 @@ void search() {
     }
 
     int turnBias = SEARCH_BASE_TURN_BIAS + rampedBonus;
-
     int insideMotor = SEARCH_SPEED - turnBias;
     int outsideMotor = SEARCH_SPEED + turnBias;
 
